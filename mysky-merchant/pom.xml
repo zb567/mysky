@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>mysky</artifactId>
+        <groupId>com.sky</groupId>
+        <version>3.8.7</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>mysky-merchant</artifactId>
+
+    <description>
+        mysky-merchant
+    </description>
+
+    <dependencies>
+
+        <!-- 核心模块-->
+        <dependency>
+            <groupId>com.sky</groupId>
+            <artifactId>mysky-framework</artifactId>
+        </dependency>
+
+    </dependencies>
+
+</project>
