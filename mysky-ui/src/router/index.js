@@ -68,7 +68,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'index',
-        component: () => import('@/views/merchant/dish/index'),
+        component: () => import('@/views/system/spot/index'),
         name: 'Index',
         meta: { title: '首页', icon: 'dashboard', affix: true }
       }
