@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mysky.system.mapper.TouristSpotMapper">
+    
+    <resultMap type="TouristSpot" id="TouristSpotResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="coverImageUrl"    column="cover_image_url"    />
+        <result property="businessMetrics"    column="business_metrics"    />
+        <result property="topIndustries"    column="top_industries"    />
+        <result property="description"    column="description"    />
+        <result property="categoryId"    column="category_id"    />
+        <result property="latitude"    column="latitude"    />
+        <result property="longitude"    column="longitude"    />
+        <result property="city"    column="city"    />
+        <result property="province"    column="province"    />
+        <result property="country"    column="country"    />
+        <result property="rating"    column="rating"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectTouristSpotVo">
+        select id, name, cover_image_url, business_metrics, top_industries, description, category_id, latitude, longitude, city, province, country, rating, create_time, update_time from tb_tourist_spot
+    </sql>
+
+    <select id="selectTouristSpotList" parameterType="TouristSpot" resultMap="TouristSpotResult">
+        <include refid="selectTouristSpotVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+            <if test="categoryId != null "> and category_id = #{categoryId}</if>
+            <if test="country != null  and country != ''"> and country = #{country}</if>
+            <if test="rating != null "> and rating = #{rating}</if>
+        </where>
+    </select>
+    
+    <select id="selectTouristSpotById" parameterType="Long" resultMap="TouristSpotResult">
+        <include refid="selectTouristSpotVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTouristSpot" parameterType="TouristSpot" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_tourist_spot
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="coverImageUrl != null">cover_image_url,</if>
+            <if test="businessMetrics != null">business_metrics,</if>
+            <if test="topIndustries != null">top_industries,</if>
+            <if test="description != null">description,</if>
+            <if test="categoryId != null">category_id,</if>
+            <if test="latitude != null">latitude,</if>
+            <if test="longitude != null">longitude,</if>
+            <if test="city != null">city,</if>
+            <if test="province != null">province,</if>
+            <if test="country != null and country != ''">country,</if>
+            <if test="rating != null">rating,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="coverImageUrl != null">#{coverImageUrl},</if>
+            <if test="businessMetrics != null">#{businessMetrics},</if>
+            <if test="topIndustries != null">#{topIndustries},</if>
+            <if test="description != null">#{description},</if>
+            <if test="categoryId != null">#{categoryId},</if>
+            <if test="latitude != null">#{latitude},</if>
+            <if test="longitude != null">#{longitude},</if>
+            <if test="city != null">#{city},</if>
+            <if test="province != null">#{province},</if>
+            <if test="country != null and country != ''">#{country},</if>
+            <if test="rating != null">#{rating},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTouristSpot" parameterType="TouristSpot">
+        update tb_tourist_spot
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="coverImageUrl != null">cover_image_url = #{coverImageUrl},</if>
+            <if test="businessMetrics != null">business_metrics = #{businessMetrics},</if>
+            <if test="topIndustries != null">top_industries = #{topIndustries},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="categoryId != null">category_id = #{categoryId},</if>
+            <if test="latitude != null">latitude = #{latitude},</if>
+            <if test="longitude != null">longitude = #{longitude},</if>
+            <if test="city != null">city = #{city},</if>
+            <if test="province != null">province = #{province},</if>
+            <if test="country != null and country != ''">country = #{country},</if>
+            <if test="rating != null">rating = #{rating},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTouristSpotById" parameterType="Long">
+        delete from tb_tourist_spot where id = #{id}
+    </delete>
+
+    <delete id="deleteTouristSpotByIds" parameterType="String">
+        delete from tb_tourist_spot where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
