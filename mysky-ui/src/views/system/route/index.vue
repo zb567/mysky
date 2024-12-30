@@ -1,42 +1,42 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="旅游地点名称" prop="name">
+      <el-form-item label="路线名称" prop="name">
         <el-input
           v-model="queryParams.name"
-          placeholder="请输入旅游地点名称"
+          placeholder="请输入路线名称"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="分类ID" prop="categoryId">
+      <el-form-item label="起点城市名称" prop="startCity">
         <el-input
-          v-model="queryParams.categoryId"
-          placeholder="请输入分类ID"
+          v-model="queryParams.startCity"
+          placeholder="请输入起点城市名称"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="所属城市" prop="city">
+      <el-form-item label="终点城市名称" prop="endCity">
         <el-input
-          v-model="queryParams.city"
-          placeholder="请输入所属城市"
+          v-model="queryParams.endCity"
+          placeholder="请输入终点城市名称"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="用户评分" prop="rating">
+      <el-form-item label="起点景点名称" prop="startPointName">
         <el-input
-          v-model="queryParams.rating"
-          placeholder="请输入用户评分"
+          v-model="queryParams.startPointName"
+          placeholder="请输入起点景点名称"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="小众度等级" prop="popularityLevel">
+      <el-form-item label="终点景点名称" prop="endPointName">
         <el-input
-          v-model="queryParams.popularityLevel"
-          placeholder="请输入小众度等级"
+          v-model="queryParams.endPointName"
+          placeholder="请输入终点景点名称"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -55,7 +55,7 @@
           icon="el-icon-plus"
           size="mini"
           @click="handleAdd"
-          v-hasPermi="['system:spot:add']"
+          v-hasPermi="['system:route:add']"
         >新增</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -66,7 +66,7 @@
           size="mini"
           :disabled="single"
           @click="handleUpdate"
-          v-hasPermi="['system:spot:edit']"
+          v-hasPermi="['system:route:edit']"
         >修改</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -77,7 +77,7 @@
           size="mini"
           :disabled="multiple"
           @click="handleDelete"
-          v-hasPermi="['system:spot:remove']"
+          v-hasPermi="['system:route:remove']"
         >删除</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -87,28 +87,28 @@
           icon="el-icon-download"
           size="mini"
           @click="handleExport"
-          v-hasPermi="['system:spot:export']"
+          v-hasPermi="['system:route:export']"
         >导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="spotList" @selection-change="handleSelectionChange">
+    <el-table v-loading="loading" :data="routeList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <!-- <el-table-column label="旅游地点唯一标识" align="center" prop="id" /> -->
-      <el-table-column label="旅游地点名称" align="center" prop="name" />
-      <el-table-column label="封面图片 URL" align="center" prop="coverImageUrl" />
-      <el-table-column label="业务数据" align="center" prop="businessMetrics" />
-      <el-table-column label="主要行业" align="center" prop="topIndustries" />
-      <el-table-column label="旅游地点描述" align="center" prop="description" />
-      <el-table-column label="分类ID" align="center" prop="categoryId" />
-      <el-table-column label="纬度" align="center" prop="latitude" />
-      <el-table-column label="经度" align="center" prop="longitude" />
-      <el-table-column label="所属城市" align="center" prop="city" />
-      <el-table-column label="所属省份" align="center" prop="province" />
-      <el-table-column label="所属国家" align="center" prop="country" />
-      <el-table-column label="用户评分" align="center" prop="rating" />
-      <el-table-column label="小众度等级" align="center" prop="popularityLevel" />
+      <el-table-column label="路线唯一标识" align="center" prop="id" />
+      <el-table-column label="路线名称" align="center" prop="name" />
+      <el-table-column label="起点城市名称" align="center" prop="startCity" />
+      <el-table-column label="终点城市名称" align="center" prop="endCity" />
+      <el-table-column label="起点景点ID" align="center" prop="startPointId" />
+      <el-table-column label="起点景点名称" align="center" prop="startPointName" />
+      <el-table-column label="终点景点ID" align="center" prop="endPointId" />
+      <el-table-column label="终点景点名称" align="center" prop="endPointName" />
+      <el-table-column label="路线总距离" align="center" prop="totalDistance" />
+      <el-table-column label="预计旅行时间" align="center" prop="estimatedTime" width="180">
+        <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.estimatedTime, '{y}-{m}-{d}') }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -116,14 +116,14 @@
             type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
-            v-hasPermi="['system:spot:edit']"
+            v-hasPermi="['system:route:edit']"
           >修改</el-button>
           <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['system:spot:remove']"
+            v-hasPermi="['system:route:remove']"
           >删除</el-button>
         </template>
       </el-table-column>
@@ -137,41 +137,40 @@
       @pagination="getList"
     />
 
-    <!-- 添加或修改旅游地点存储核心信息对话框 -->
+    <!-- 添加或修改存储旅游者路线的基本信息对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="旅游地点名称" prop="name">
-          <el-input v-model="form.name" placeholder="请输入旅游地点名称" />
+        <el-form-item label="路线名称" prop="name">
+          <el-input v-model="form.name" placeholder="请输入路线名称" />
         </el-form-item>
-        <el-form-item label="封面图片 URL" prop="coverImageUrl">
-          <el-input v-model="form.coverImageUrl" type="textarea" placeholder="请输入内容" />
+        <el-form-item label="起点城市名称" prop="startCity">
+          <el-input v-model="form.startCity" placeholder="请输入起点城市名称" />
         </el-form-item>
-        <el-form-item label="旅游地点描述" prop="description">
-          <el-input v-model="form.description" type="textarea" placeholder="请输入内容" />
+        <el-form-item label="终点城市名称" prop="endCity">
+          <el-input v-model="form.endCity" placeholder="请输入终点城市名称" />
         </el-form-item>
-        <el-form-item label="分类ID" prop="categoryId">
-          <el-input v-model="form.categoryId" placeholder="请输入分类ID" />
+        <el-form-item label="起点景点ID" prop="startPointId">
+          <el-input v-model="form.startPointId" placeholder="请输入起点景点ID" />
         </el-form-item>
-        <el-form-item label="纬度" prop="latitude">
-          <el-input v-model="form.latitude" placeholder="请输入纬度" />
+        <el-form-item label="起点景点名称" prop="startPointName">
+          <el-input v-model="form.startPointName" placeholder="请输入起点景点名称" />
         </el-form-item>
-        <el-form-item label="经度" prop="longitude">
-          <el-input v-model="form.longitude" placeholder="请输入经度" />
+        <el-form-item label="终点景点ID" prop="endPointId">
+          <el-input v-model="form.endPointId" placeholder="请输入终点景点ID" />
         </el-form-item>
-        <el-form-item label="所属城市" prop="city">
-          <el-input v-model="form.city" placeholder="请输入所属城市" />
+        <el-form-item label="终点景点名称" prop="endPointName">
+          <el-input v-model="form.endPointName" placeholder="请输入终点景点名称" />
         </el-form-item>
-        <el-form-item label="所属省份" prop="province">
-          <el-input v-model="form.province" placeholder="请输入所属省份" />
+        <el-form-item label="路线总距离" prop="totalDistance">
+          <el-input v-model="form.totalDistance" placeholder="请输入路线总距离" />
         </el-form-item>
-        <el-form-item label="所属国家" prop="country">
-          <el-input v-model="form.country" placeholder="请输入所属国家" />
-        </el-form-item>
-        <el-form-item label="用户评分" prop="rating">
-          <el-input v-model="form.rating" placeholder="请输入用户评分" />
-        </el-form-item>
-        <el-form-item label="小众度等级" prop="popularityLevel">
-          <el-input v-model="form.popularityLevel" placeholder="请输入小众度等级" />
+        <el-form-item label="预计旅行时间" prop="estimatedTime">
+          <el-date-picker clearable
+            v-model="form.estimatedTime"
+            type="date"
+            value-format="yyyy-MM-dd"
+            placeholder="请选择预计旅行时间">
+          </el-date-picker>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -183,10 +182,10 @@
 </template>
 
 <script>
-import { listSpot, getSpot, delSpot, addSpot, updateSpot } from "@/api/system/spot";
+import { listRoute, getRoute, delRoute, addRoute, updateRoute } from "@/api/system/route";
 
 export default {
-  name: "Spot",
+  name: "Route",
   data() {
     return {
       // 遮罩层
@@ -201,8 +200,8 @@ export default {
       showSearch: true,
       // 总条数
       total: 0,
-      // 旅游地点存储核心信息表格数据
-      spotList: [],
+      // 存储旅游者路线的基本信息表格数据
+      routeList: [],
       // 弹出层标题
       title: "",
       // 是否显示弹出层
@@ -212,25 +211,41 @@ export default {
         pageNum: 1,
         pageSize: 10,
         name: null,
-        businessMetrics: null,
-        topIndustries: null,
-        categoryId: null,
-        city: null,
-        rating: null,
-        popularityLevel: null,
+        startCity: null,
+        endCity: null,
+        startPointName: null,
+        endPointName: null,
       },
       // 表单参数
       form: {},
       // 表单校验
       rules: {
         name: [
-          { required: true, message: "旅游地点名称不能为空", trigger: "blur" }
+          { required: true, message: "路线名称不能为空", trigger: "blur" }
         ],
-        categoryId: [
-          { required: true, message: "分类ID不能为空", trigger: "blur" }
+        startCity: [
+          { required: true, message: "起点城市名称不能为空", trigger: "blur" }
         ],
-        country: [
-          { required: true, message: "所属国家不能为空", trigger: "blur" }
+        endCity: [
+          { required: true, message: "终点城市名称不能为空", trigger: "blur" }
+        ],
+        startPointId: [
+          { required: true, message: "起点景点ID不能为空", trigger: "blur" }
+        ],
+        startPointName: [
+          { required: true, message: "起点景点名称不能为空", trigger: "blur" }
+        ],
+        endPointId: [
+          { required: true, message: "终点景点ID不能为空", trigger: "blur" }
+        ],
+        endPointName: [
+          { required: true, message: "终点景点名称不能为空", trigger: "blur" }
+        ],
+        totalDistance: [
+          { required: true, message: "路线总距离不能为空", trigger: "blur" }
+        ],
+        estimatedTime: [
+          { required: true, message: "预计旅行时间不能为空", trigger: "blur" }
         ],
       }
     };
@@ -239,11 +254,11 @@ export default {
     this.getList();
   },
   methods: {
-    /** 查询旅游地点存储核心信息列表 */
+    /** 查询存储旅游者路线的基本信息列表 */
     getList() {
       this.loading = true;
-      listSpot(this.queryParams).then(response => {
-        this.spotList = response.rows;
+      listRoute(this.queryParams).then(response => {
+        this.routeList = response.rows;
         this.total = response.total;
         this.loading = false;
       });
@@ -258,18 +273,14 @@ export default {
       this.form = {
         id: null,
         name: null,
-        coverImageUrl: null,
-        businessMetrics: null,
-        topIndustries: null,
-        description: null,
-        categoryId: null,
-        latitude: null,
-        longitude: null,
-        city: null,
-        province: null,
-        country: null,
-        rating: null,
-        popularityLevel: null,
+        startCity: null,
+        endCity: null,
+        startPointId: null,
+        startPointName: null,
+        endPointId: null,
+        endPointName: null,
+        totalDistance: null,
+        estimatedTime: null,
         createTime: null,
         updateTime: null
       };
@@ -295,16 +306,16 @@ export default {
     handleAdd() {
       this.reset();
       this.open = true;
-      this.title = "添加旅游地点存储核心信息";
+      this.title = "添加存储旅游者路线的基本信息";
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
       const id = row.id || this.ids
-      getSpot(id).then(response => {
+      getRoute(id).then(response => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改旅游地点存储核心信息";
+        this.title = "修改存储旅游者路线的基本信息";
       });
     },
     /** 提交按钮 */
@@ -312,13 +323,13 @@ export default {
       this.$refs["form"].validate(valid => {
         if (valid) {
           if (this.form.id != null) {
-            updateSpot(this.form).then(response => {
+            updateRoute(this.form).then(response => {
               this.$modal.msgSuccess("修改成功");
               this.open = false;
               this.getList();
             });
           } else {
-            addSpot(this.form).then(response => {
+            addRoute(this.form).then(response => {
               this.$modal.msgSuccess("新增成功");
               this.open = false;
               this.getList();
@@ -330,8 +341,8 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const ids = row.id || this.ids;
-      this.$modal.confirm('是否确认删除旅游地点存储核心信息编号为"' + ids + '"的数据项？').then(function() {
-        return delSpot(ids);
+      this.$modal.confirm('是否确认删除存储旅游者路线的基本信息编号为"' + ids + '"的数据项？').then(function() {
+        return delRoute(ids);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("删除成功");
@@ -339,9 +350,9 @@ export default {
     },
     /** 导出按钮操作 */
     handleExport() {
-      this.download('system/spot/export', {
+      this.download('system/route/export', {
         ...this.queryParams
-      }, `spot_${new Date().getTime()}.xlsx`)
+      }, `route_${new Date().getTime()}.xlsx`)
     }
   }
 };

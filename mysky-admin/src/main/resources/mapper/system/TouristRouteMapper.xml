@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mysky.system.mapper.TouristRouteMapper">
+    
+    <resultMap type="TouristRoute" id="TouristRouteResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="startCity"    column="start_city"    />
+        <result property="endCity"    column="end_city"    />
+        <result property="startPointId"    column="start_point_id"    />
+        <result property="startPointName"    column="start_point_name"    />
+        <result property="endPointId"    column="end_point_id"    />
+        <result property="endPointName"    column="end_point_name"    />
+        <result property="totalDistance"    column="total_distance"    />
+        <result property="estimatedTime"    column="estimated_time"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectTouristRouteVo">
+        select id, name, start_city, end_city, start_point_id, start_point_name, end_point_id, end_point_name, total_distance, estimated_time, create_time, update_time from tb_tourist_route
+    </sql>
+
+    <select id="selectTouristRouteList" parameterType="TouristRoute" resultMap="TouristRouteResult">
+        <include refid="selectTouristRouteVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="startCity != null  and startCity != ''"> and start_city = #{startCity}</if>
+            <if test="endCity != null  and endCity != ''"> and end_city = #{endCity}</if>
+            <if test="startPointName != null  and startPointName != ''"> and start_point_name like concat('%', #{startPointName}, '%')</if>
+            <if test="endPointName != null  and endPointName != ''"> and end_point_name like concat('%', #{endPointName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectTouristRouteById" parameterType="Long" resultMap="TouristRouteResult">
+        <include refid="selectTouristRouteVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTouristRoute" parameterType="TouristRoute" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_tourist_route
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="startCity != null and startCity != ''">start_city,</if>
+            <if test="endCity != null and endCity != ''">end_city,</if>
+            <if test="startPointId != null">start_point_id,</if>
+            <if test="startPointName != null and startPointName != ''">start_point_name,</if>
+            <if test="endPointId != null">end_point_id,</if>
+            <if test="endPointName != null and endPointName != ''">end_point_name,</if>
+            <if test="totalDistance != null">total_distance,</if>
+            <if test="estimatedTime != null">estimated_time,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="startCity != null and startCity != ''">#{startCity},</if>
+            <if test="endCity != null and endCity != ''">#{endCity},</if>
+            <if test="startPointId != null">#{startPointId},</if>
+            <if test="startPointName != null and startPointName != ''">#{startPointName},</if>
+            <if test="endPointId != null">#{endPointId},</if>
+            <if test="endPointName != null and endPointName != ''">#{endPointName},</if>
+            <if test="totalDistance != null">#{totalDistance},</if>
+            <if test="estimatedTime != null">#{estimatedTime},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTouristRoute" parameterType="TouristRoute">
+        update tb_tourist_route
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="startCity != null and startCity != ''">start_city = #{startCity},</if>
+            <if test="endCity != null and endCity != ''">end_city = #{endCity},</if>
+            <if test="startPointId != null">start_point_id = #{startPointId},</if>
+            <if test="startPointName != null and startPointName != ''">start_point_name = #{startPointName},</if>
+            <if test="endPointId != null">end_point_id = #{endPointId},</if>
+            <if test="endPointName != null and endPointName != ''">end_point_name = #{endPointName},</if>
+            <if test="totalDistance != null">total_distance = #{totalDistance},</if>
+            <if test="estimatedTime != null">estimated_time = #{estimatedTime},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTouristRouteById" parameterType="Long">
+        delete from tb_tourist_route where id = #{id}
+    </delete>
+
+    <delete id="deleteTouristRouteByIds" parameterType="String">
+        delete from tb_tourist_route where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
