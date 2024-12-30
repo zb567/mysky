@@ -97,18 +97,18 @@
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="路线唯一标识" align="center" prop="id" />
       <el-table-column label="路线名称" align="center" prop="name" />
-      <el-table-column label="起点城市名称" align="center" prop="startCity" />
-      <el-table-column label="终点城市名称" align="center" prop="endCity" />
       <el-table-column label="起点景点ID" align="center" prop="startPointId" />
       <el-table-column label="起点景点名称" align="center" prop="startPointName" />
+      <el-table-column label="起点城市名称" align="center" prop="startCity" />
       <el-table-column label="终点景点ID" align="center" prop="endPointId" />
       <el-table-column label="终点景点名称" align="center" prop="endPointName" />
+      <el-table-column label="终点城市名称" align="center" prop="endCity" />
       <el-table-column label="路线总距离" align="center" prop="totalDistance" />
-      <el-table-column label="预计旅行时间" align="center" prop="estimatedTime" width="180">
+      <!-- <el-table-column label="预计旅行时间" align="center" prop="estimatedTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.estimatedTime, '{y}-{m}-{d}') }}</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -164,14 +164,14 @@
         <el-form-item label="路线总距离" prop="totalDistance">
           <el-input v-model="form.totalDistance" placeholder="请输入路线总距离" />
         </el-form-item>
-        <el-form-item label="预计旅行时间" prop="estimatedTime">
+        <!-- <el-form-item label="预计旅行时间" prop="estimatedTime">
           <el-date-picker clearable
             v-model="form.estimatedTime"
             type="date"
             value-format="yyyy-MM-dd"
             placeholder="请选择预计旅行时间">
           </el-date-picker>
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -244,9 +244,9 @@ export default {
         totalDistance: [
           { required: true, message: "路线总距离不能为空", trigger: "blur" }
         ],
-        estimatedTime: [
+        /* estimatedTime: [
           { required: true, message: "预计旅行时间不能为空", trigger: "blur" }
-        ],
+        ], */
       }
     };
   },
@@ -280,7 +280,7 @@ export default {
         endPointId: null,
         endPointName: null,
         totalDistance: null,
-        estimatedTime: null,
+        // estimatedTime: null,
         createTime: null,
         updateTime: null
       };

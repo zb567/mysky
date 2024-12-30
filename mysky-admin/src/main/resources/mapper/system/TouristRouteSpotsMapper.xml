@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mysky.system.mapper.TouristRouteSpotsMapper">
+    
+    <resultMap type="TouristRouteSpots" id="TouristRouteSpotsResult">
+        <result property="id"    column="id"    />
+        <result property="routeId"    column="route_id"    />
+        <result property="spotId"    column="spot_id"    />
+        <result property="spotName"    column="spot_name"    />
+        <result property="sequence"    column="sequence"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectTouristRouteSpotsVo">
+        select id, route_id, spot_id, spot_name, sequence, create_time, update_time from tb_tourist_route_spots
+    </sql>
+
+    <select id="selectTouristRouteSpotsList" parameterType="TouristRouteSpots" resultMap="TouristRouteSpotsResult">
+        <include refid="selectTouristRouteSpotsVo"/>
+        <where>  
+            <if test="spotName != null  and spotName != ''"> and spot_name like concat('%', #{spotName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectTouristRouteSpotsById" parameterType="Long" resultMap="TouristRouteSpotsResult">
+        <include refid="selectTouristRouteSpotsVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTouristRouteSpots" parameterType="TouristRouteSpots" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_tourist_route_spots
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="routeId != null">route_id,</if>
+            <if test="spotId != null">spot_id,</if>
+            <if test="spotName != null and spotName != ''">spot_name,</if>
+            <if test="sequence != null">sequence,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="routeId != null">#{routeId},</if>
+            <if test="spotId != null">#{spotId},</if>
+            <if test="spotName != null and spotName != ''">#{spotName},</if>
+            <if test="sequence != null">#{sequence},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTouristRouteSpots" parameterType="TouristRouteSpots">
+        update tb_tourist_route_spots
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="routeId != null">route_id = #{routeId},</if>
+            <if test="spotId != null">spot_id = #{spotId},</if>
+            <if test="spotName != null and spotName != ''">spot_name = #{spotName},</if>
+            <if test="sequence != null">sequence = #{sequence},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTouristRouteSpotsById" parameterType="Long">
+        delete from tb_tourist_route_spots where id = #{id}
+    </delete>
+
+    <delete id="deleteTouristRouteSpotsByIds" parameterType="String">
+        delete from tb_tourist_route_spots where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
