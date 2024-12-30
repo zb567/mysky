@@ -17,10 +17,10 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="所属国家" prop="country">
+      <el-form-item label="所属城市" prop="city">
         <el-input
-          v-model="queryParams.country"
-          placeholder="请输入所属国家"
+          v-model="queryParams.city"
+          placeholder="请输入所属城市"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -29,6 +29,14 @@
         <el-input
           v-model="queryParams.rating"
           placeholder="请输入用户评分"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="小众度等级" prop="popularityLevel">
+        <el-input
+          v-model="queryParams.popularityLevel"
+          placeholder="请输入小众度等级"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -87,9 +95,9 @@
 
     <el-table v-loading="loading" :data="spotList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="id" align="center" prop="id" />
+      <el-table-column label="旅游地点唯一标识" align="center" prop="id" />
       <el-table-column label="旅游地点名称" align="center" prop="name" />
-      <el-table-column label="封面图片" align="center" prop="coverImageUrl" />
+      <el-table-column label="封面图片 URL" align="center" prop="coverImageUrl" />
       <el-table-column label="业务数据" align="center" prop="businessMetrics" />
       <el-table-column label="主要行业" align="center" prop="topIndustries" />
       <el-table-column label="旅游地点描述" align="center" prop="description" />
@@ -100,6 +108,7 @@
       <el-table-column label="所属省份" align="center" prop="province" />
       <el-table-column label="所属国家" align="center" prop="country" />
       <el-table-column label="用户评分" align="center" prop="rating" />
+      <el-table-column label="小众度等级" align="center" prop="popularityLevel" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -134,7 +143,7 @@
         <el-form-item label="旅游地点名称" prop="name">
           <el-input v-model="form.name" placeholder="请输入旅游地点名称" />
         </el-form-item>
-        <el-form-item label="封面图片" prop="coverImageUrl">
+        <el-form-item label="封面图片 URL" prop="coverImageUrl">
           <el-input v-model="form.coverImageUrl" type="textarea" placeholder="请输入内容" />
         </el-form-item>
         <el-form-item label="旅游地点描述" prop="description">
@@ -160,6 +169,9 @@
         </el-form-item>
         <el-form-item label="用户评分" prop="rating">
           <el-input v-model="form.rating" placeholder="请输入用户评分" />
+        </el-form-item>
+        <el-form-item label="小众度等级" prop="popularityLevel">
+          <el-input v-model="form.popularityLevel" placeholder="请输入小众度等级" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -200,10 +212,12 @@ export default {
         pageNum: 1,
         pageSize: 10,
         name: null,
-        description: null,
+        businessMetrics: null,
+        topIndustries: null,
         categoryId: null,
-        country: null,
+        city: null,
         rating: null,
+        popularityLevel: null,
       },
       // 表单参数
       form: {},
@@ -255,6 +269,7 @@ export default {
         province: null,
         country: null,
         rating: null,
+        popularityLevel: null,
         createTime: null,
         updateTime: null
       };

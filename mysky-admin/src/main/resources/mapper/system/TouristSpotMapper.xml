@@ -18,22 +18,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="province"    column="province"    />
         <result property="country"    column="country"    />
         <result property="rating"    column="rating"    />
+        <result property="popularityLevel"    column="popularity_level"    />
         <result property="createTime"    column="create_time"    />
         <result property="updateTime"    column="update_time"    />
     </resultMap>
 
     <sql id="selectTouristSpotVo">
-        select id, name, cover_image_url, business_metrics, top_industries, description, category_id, latitude, longitude, city, province, country, rating, create_time, update_time from tb_tourist_spot
+        select id, name, cover_image_url, business_metrics, top_industries, description, category_id, latitude, longitude, city, province, country, rating, popularity_level, create_time, update_time from tb_tourist_spot
     </sql>
 
     <select id="selectTouristSpotList" parameterType="TouristSpot" resultMap="TouristSpotResult">
         <include refid="selectTouristSpotVo"/>
         <where>  
             <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
-            <if test="description != null  and description != ''"> and description = #{description}</if>
+            <if test="businessMetrics != null  and businessMetrics != ''"> and business_metrics = #{businessMetrics}</if>
+            <if test="topIndustries != null  and topIndustries != ''"> and top_industries = #{topIndustries}</if>
             <if test="categoryId != null "> and category_id = #{categoryId}</if>
-            <if test="country != null  and country != ''"> and country = #{country}</if>
+            <if test="city != null  and city != ''"> and city = #{city}</if>
             <if test="rating != null "> and rating = #{rating}</if>
+            <if test="popularityLevel != null "> and popularity_level = #{popularityLevel}</if>
         </where>
     </select>
     
@@ -57,6 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="province != null">province,</if>
             <if test="country != null and country != ''">country,</if>
             <if test="rating != null">rating,</if>
+            <if test="popularityLevel != null">popularity_level,</if>
             <if test="createTime != null">create_time,</if>
             <if test="updateTime != null">update_time,</if>
          </trim>
@@ -73,6 +77,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="province != null">#{province},</if>
             <if test="country != null and country != ''">#{country},</if>
             <if test="rating != null">#{rating},</if>
+            <if test="popularityLevel != null">#{popularityLevel},</if>
             <if test="createTime != null">#{createTime},</if>
             <if test="updateTime != null">#{updateTime},</if>
          </trim>
@@ -93,6 +98,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="province != null">province = #{province},</if>
             <if test="country != null and country != ''">country = #{country},</if>
             <if test="rating != null">rating = #{rating},</if>
+            <if test="popularityLevel != null">popularity_level = #{popularityLevel},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
         </trim>

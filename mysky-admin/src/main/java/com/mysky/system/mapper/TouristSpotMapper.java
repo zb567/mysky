@@ -7,7 +7,7 @@ import com.mysky.system.domain.TouristSpot;
  * 旅游地点存储核心信息Mapper接口
  * 
  * @author ll
- * @date 2024-12-25
+ * @date 2024-12-30
  */
 public interface TouristSpotMapper 
 {

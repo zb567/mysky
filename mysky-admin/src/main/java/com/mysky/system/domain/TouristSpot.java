@@ -10,29 +10,29 @@ import com.mysky.common.core.domain.BaseEntity;
  * 旅游地点存储核心信息对象 tb_tourist_spot
  * 
  * @author ll
- * @date 2024-12-25
+ * @date 2024-12-30
  */
 public class TouristSpot extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
-    /** id */
+    /** 旅游地点唯一标识 */
     private Long id;
 
     /** 旅游地点名称 */
     @Excel(name = "旅游地点名称")
     private String name;
 
-    /** 封面图片 */
-    @Excel(name = "封面图片")
+    /** 封面图片 URL */
+    @Excel(name = "封面图片 URL")
     private String coverImageUrl;
 
-    /** 业务数据 */
-    @Excel(name = "业务数据")
+    /** 业务数据（JSON格式） */
+    @Excel(name = "业务数据", readConverterExp = "J=SON格式")
     private String businessMetrics;
 
-    /** 主要行业 */
-    @Excel(name = "主要行业")
+    /** 主要行业（JSON格式） */
+    @Excel(name = "主要行业", readConverterExp = "J=SON格式")
     private String topIndustries;
 
     /** 旅游地点描述 */
@@ -66,6 +66,10 @@ public class TouristSpot extends BaseEntity
     /** 用户评分 */
     @Excel(name = "用户评分")
     private BigDecimal rating;
+
+    /** 小众度等级 */
+    @Excel(name = "小众度等级")
+    private Long popularityLevel;
 
     public void setId(Long id) 
     {
@@ -184,6 +188,15 @@ public class TouristSpot extends BaseEntity
     {
         return rating;
     }
+    public void setPopularityLevel(Long popularityLevel) 
+    {
+        this.popularityLevel = popularityLevel;
+    }
+
+    public Long getPopularityLevel() 
+    {
+        return popularityLevel;
+    }
 
     @Override
     public String toString() {
@@ -201,6 +214,7 @@ public class TouristSpot extends BaseEntity
             .append("province", getProvince())
             .append("country", getCountry())
             .append("rating", getRating())
+            .append("popularityLevel", getPopularityLevel())
             .append("createTime", getCreateTime())
             .append("updateTime", getUpdateTime())
             .toString();
