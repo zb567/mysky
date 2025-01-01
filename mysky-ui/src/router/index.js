@@ -75,6 +75,18 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/system',
+    component: Layout,
+    children: [
+      {
+        path: 'route',
+        component: () => import('@/views/system/route/index'),
+        name: 'route',
+        meta: { title: '路线管理', icon: 'route' }
+      }
+    ]
+  },
+  {
     path: '/user',
     component: Layout,
     hidden: true,

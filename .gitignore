@@ -1,6 +1,6 @@
 ######################################################################
 # Build Tools
-
+.gitignore
 .gradle
 /build/
 !gradle/wrapper/gradle-wrapper.jar
@@ -45,3 +45,4 @@ nbdist/
 !*/build/*.java
 !*/build/*.html
 !*/build/*.xml
+/.vscode/settings.json

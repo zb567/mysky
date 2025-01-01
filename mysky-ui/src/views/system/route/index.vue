@@ -252,8 +252,41 @@ export default {
   },
   created() {
     this.getList();
+    this.initializeFromRoute();
+  },
+  watch: {
+    // 监听路由变化
+    '$route': {
+      handler: 'initializeFromRoute',
+      immediate: true
+    }
   },
   methods: {
+    // 从路由初始化数据
+    initializeFromRoute() {
+      // 检查是否有新的路线数据和打开新增窗口的参数
+      const newRouteInfo = sessionStorage.getItem('newRouteInfo');
+      const shouldOpenAdd = this.$route.query.openAdd === 'true';
+      
+      if (newRouteInfo && shouldOpenAdd) {
+        try {
+          const routeData = JSON.parse(newRouteInfo);
+          // 打开新增窗口
+          this.handleAdd();
+          // 填充表单数据
+          this.$nextTick(() => {
+            this.form = {
+              ...this.form,
+              ...routeData
+            };
+          });
+          // 清除 sessionStorage 中的数据
+          sessionStorage.removeItem('newRouteInfo');
+        } catch (error) {
+          console.error('解析路线数据失败:', error);
+        }
+      }
+    },
     /** 查询存储旅游者路线的基本信息列表 */
     getList() {
       this.loading = true;
