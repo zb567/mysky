@@ -226,7 +226,8 @@ export default {
           
           // 使用 replace 替换当前页面
           this.$router.replace({
-            path: '/system/route',
+            path: '/route',
+            // path: '/system/route',
             query: { openAdd: 'true', _t: Date.now() }  // 添加时间戳确保路由变化
           });
 
