@@ -12,8 +12,6 @@ public class BusinessTestController {
     @GetMapping("/test")
     public String test() {
         return "test";
-
-
     }
 
 
