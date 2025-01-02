@@ -71,6 +71,11 @@
             <artifactId>demo</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.sky</groupId>
+            <artifactId>mysky-business</artifactId>
+        </dependency>
+
 
     </dependencies>
 

@@ -179,12 +179,19 @@
                 <version>${mysky.version}</version>
             </dependency>
 
+            <!-- 业务模块 -->
+            <dependency>
+                <groupId>com.sky</groupId>
+                <artifactId>mysky-business</artifactId>
+                <version>${mysky.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>com.sky</groupId>
                 <artifactId>demo</artifactId>
                 <version>${mysky.version}</version>
             </dependency>
+
 
         </dependencies>
     </dependencyManagement>
@@ -197,6 +204,7 @@
         <module>mysky-generator</module>
         <module>mysky-common</module>
         <module>mysky-merchant</module>
+        <module>mysky-business</module>
         <module>demo</module>
     </modules>
     <packaging>pom</packaging>

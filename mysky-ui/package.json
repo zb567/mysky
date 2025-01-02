@@ -1,15 +1,12 @@
 {
-  "name": "ruoyi",
+  "name": "storyroute",
   "version": "3.8.7",
   "description": "StoryRoute管理系统",
-  "author": "若依",
+  "author": "ll",
   "license": "MIT",
   "scripts": {
     "dev": "vue-cli-service serve --port 8071",
-    "build:prod": "vue-cli-service build",
-    "build:stage": "vue-cli-service build --mode staging",
-    "preview": "node build/index.js --preview",
-    "lint": "eslint --ext .js,.vue src"
+    "build:prod": "vue-cli-service build"
   },
   "husky": {
     "hooks": {
@@ -31,10 +28,6 @@
     "admin-template",
     "management-system"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://gitee.com/y_project/RuoYi-Vue.git"
-  },
   "dependencies": {
     "@riophae/vue-treeselect": "0.4.0",
     "axios": "0.24.0",

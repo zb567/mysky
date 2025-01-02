@@ -61,6 +61,18 @@ export const constantRoutes = [
     component: () => import('@/views/error/401'),
     hidden: true
   },
+  // {
+  //   path: '/tool',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'image',
+  //       component: () => import('@/views/tool/image/index'),
+  //       name: 'ImageTool',
+  //       meta: { title: '图片工具', icon: 'image' }
+  //     }
+  //   ]
+  // },
   {
     path: '',
     component: Layout,
