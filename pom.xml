@@ -186,13 +186,6 @@
                 <version>${mysky.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>com.sky</groupId>
-                <artifactId>demo</artifactId>
-                <version>${mysky.version}</version>
-            </dependency>
-
-
         </dependencies>
     </dependencyManagement>
 
@@ -205,7 +198,6 @@
         <module>mysky-common</module>
         <module>mysky-merchant</module>
         <module>mysky-business</module>
-        <module>demo</module>
     </modules>
     <packaging>pom</packaging>
 
