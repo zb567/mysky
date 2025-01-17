@@ -17,6 +17,5 @@ public class AIControllerTest {
         System.out.println("testOnePlusOneEqualsTwo");
         System.out.println("testOnePlusOneEqualsTwo");
 
-
     }
 } 

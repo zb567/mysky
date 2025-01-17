@@ -71,6 +71,11 @@ public class LoginUser implements UserDetails
      */
     private SysUser user;
 
+    /**
+     * 用户生日
+     */
+    private Long birthday;
+
     public LoginUser()
     {
     }
@@ -262,5 +267,13 @@ public class LoginUser implements UserDetails
     public Collection<? extends GrantedAuthority> getAuthorities()
     {
         return null;
+    }
+
+    public Long getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Long birthday) {
+        this.birthday = birthday;
     }
 }

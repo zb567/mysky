@@ -1,0 +1,2 @@
+ALTER TABLE `sys_user`
+ADD COLUMN `birthday` DATE DEFAULT NULL COMMENT '用户生日';

@@ -89,6 +89,12 @@ public class SysUser extends BaseEntity
     /** 角色ID */
     private Long roleId;
 
+    /**
+     * 用户生日
+     */
+    @Excel(name = "生日", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss", type = Type.EXPORT)
+    private Date birthday;
+
     public SysUser()
     {
 
@@ -297,6 +303,16 @@ public class SysUser extends BaseEntity
         this.roleId = roleId;
     }
 
+    public Date getBirthday()
+    {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday)
+    {
+        this.birthday = birthday;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -319,6 +335,7 @@ public class SysUser extends BaseEntity
             .append("updateTime", getUpdateTime())
             .append("remark", getRemark())
             .append("dept", getDept())
+            .append("birthday", getBirthday())
             .toString();
     }
 }
