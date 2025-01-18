@@ -17,10 +17,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="estimatedTime"    column="estimated_time"    />
         <result property="createTime"    column="create_time"    />
         <result property="updateTime"    column="update_time"    />
+        <result property="route_images"    column="route_images"    />
     </resultMap>
 
     <sql id="selectTouristRouteVo">
-        select id, name, start_city, end_city, start_point_id, start_point_name, end_point_id, end_point_name, total_distance, estimated_time, create_time, update_time from tb_tourist_route
+        select id, name, start_city, end_city, start_point_id, start_point_name, end_point_id, end_point_name, total_distance, estimated_time, create_time, update_time, route_image from tb_tourist_route
     </sql>
 
     <select id="selectTouristRouteList" parameterType="TouristRoute" resultMap="TouristRouteResult">

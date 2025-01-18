@@ -28,8 +28,7 @@
         </div>
       </el-form-item>
       <el-form-item size="large">
-        <el-button type="primary">提交</el-button>
-        <!-- <el-button type="primary" @click="submitForm">提交</el-button> -->
+        <el-button type="primary" @click="submitForm">提交</el-button>
         <el-button @click="resetForm">重置</el-button>
       </el-form-item>
     </el-form>
@@ -116,94 +115,6 @@ export default {
         try {
           // 解析生成的路线数据
           const routeData = JSON.parse(this.generatedRoute);
-
-          // 使用测试数据
-          const routeData1 = {
-            "departure_location": "Beijing, China",
-            "destination": "Tokyo, Japan",
-            "tour_name": "Beijing to Tokyo Cultural Experience",
-            "itinerary": [
-              {
-                "time": "Day 1: Morning",
-                "activity": "Flight from Beijing to Tokyo",
-                "details": [
-                  "Depart from Beijing Capital International Airport",
-                  "Arrival at Narita International Airport or Haneda Airport"
-                ]
-              },
-              {
-                "time": "Day 1: Afternoon",
-                "activity": "Check into Tokyo Accommodation",
-                "details": [
-                  "Stay at a centrally located hotel",
-                  "Rest and refresh after the flight"
-                ]
-              },
-              {
-                "time": "Day 1: Evening",
-                "activity": "Explore Shibuya and Shinjuku",
-                "details": [
-                  "Visit the iconic Shibuya Crossing",
-                  "Enjoy dinner at a local izakaya",
-                  "Experience the vibrant nightlife in Shinjuku"
-                ]
-              },
-              {
-                "time": "Day 2: Morning",
-                "activity": "Visit Sensoji Temple",
-                "details": [
-                  "Discover Tokyo's oldest temple in Asakusa",
-                  "Shop for souvenirs at Nakamise Shopping Street",
-                  "Enjoy Tokyo Skytree views"
-                ]
-              },
-              {
-                "time": "Day 2: Afternoon",
-                "activity": "Explore Akihabara",
-                "details": [
-                  "Experience the electronic and anime culture hub",
-                  "Visit Maid Cafes for a unique cultural experience",
-                  "Shop for electronics and anime merchandise"
-                ]
-              },
-              {
-                "time": "Day 2: Evening",
-                "activity": "Dinner in Ginza",
-                "details": [
-                  "Dine at a sushi or kaiseki restaurant",
-                  "Stroll through the upscale shopping district"
-                ]
-              },
-              {
-                "time": "Day 3: All Day",
-                "activity": "Day Trip to Mount Fuji",
-                "details": [
-                  "Take a guided tour to Lake Ashi and Hakone",
-                  "Enjoy breathtaking views of Mount Fuji",
-                  "Ride the Hakone Ropeway for aerial views"
-                ]
-              },
-              {
-                "time": "Day 4: Morning",
-                "activity": "Explore Harajuku and Meiji Shrine",
-                "details": [
-                  "Walk through the trendy Harajuku district",
-                  "Visit the serene Meiji Shrine",
-                  "Participate in a sake tasting experience"
-                ]
-              },
-              {
-                "time": "Day 4: Afternoon",
-                "activity": "Return Flight to Beijing",
-                "details": [
-                  "Check out from the hotel",
-                  "Depart from Narita or Haneda Airport",
-                  "Arrive back in Beijing"
-                ]
-              }
-            ],
-            "package_price": "$1500 per person"
-          };
 
           // 准备路线数据
           const routeInfo = {

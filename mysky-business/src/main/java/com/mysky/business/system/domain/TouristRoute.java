@@ -58,6 +58,10 @@ public class TouristRoute extends BaseEntity
     @Excel(name = "预计旅行时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date estimatedTime;
 
+    /** 终点景点名称 */
+    @Excel(name = "路线图片")
+    private String route_image;
+
     public void setId(Long id) 
     {
         this.id = id;
@@ -149,6 +153,14 @@ public class TouristRoute extends BaseEntity
         return estimatedTime;
     }
 
+    public String getRoute_image() {
+        return route_image;
+    }
+    public void setRoute_image(String route_image) {
+        this.route_image = route_image;
+    }
+
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -164,6 +176,7 @@ public class TouristRoute extends BaseEntity
             .append("estimatedTime", getEstimatedTime())
             .append("createTime", getCreateTime())
             .append("updateTime", getUpdateTime())
+            .append("route_image", getRoute_image())
             .toString();
     }
 }
