@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+cd /root/myjenkins/mysky
+docker build -t mysky:1.0 .
+app_name='mysky'
+docker stop ${app_name}
+echo '----stop container----'
+docker rm ${app_name}
+echo '----rm container----'
+docker run -di --name=${app_name} -p 8061:8061 ${app_name}:1.0
+echo '----start container----'

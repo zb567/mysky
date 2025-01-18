@@ -1,0 +1,15 @@
+version: '3.8'
+
+# 修改端口和容器名
+services:
+  myskyservice:
+    image: openjdk  # 使用官方 OpenJDK 镜像
+    container_name: mysky
+    ports:
+      - "8061:8061"  # 映射容器端口到主机
+    volumes:
+      - ./mysky-admin.jar:/app.jar  # 将本地的 .jar 文件挂载到容器中
+    command: ["java", "-jar", "/app.jar", "--server.port=8061"]  # 启动 Java 应用
+#    environment:
+#      - SERVER_PORT=8061
+    restart: always
